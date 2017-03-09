@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/chessboardundistort.png "Undistorted chessboard"
-[image2]: ./examples/roadImageUndistort.png "Road ImageTransformed"
+[image2]: ./examples/roadImageUndistort .png "Road ImageTransformed"
 [image3]: ./examples/gradient.png "Gradient applied"
 [image4]: ./examples/SChannel.png "SChannel applied"
 [image5]: ./examples/Stacked.png "Stacked Gradient and SChannel applied"
