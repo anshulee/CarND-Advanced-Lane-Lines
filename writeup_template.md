@@ -18,13 +18,21 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+[image1]: ./examples/chessboardundistort.png "Undistorted chessboard"
+[image2]: ./examples/roadImageUndistort.png "Road ImageTransformed"
+[image3]: ./examples/gradient.png "Gradient applied"
+[image4]: ./examples/SChannel.png "SChannel applied"
+[image5]: ./examples/Stacked.png "Stacked Gradient and SChannel applied"
+[image6]: ./examples/perspectiveSingle.png "Road perspective applied"
+[image7]: ./examples/perspectiveGradient.png "Gradient perspective applied"
+[image8]: ./examples/drawOnRoad.png "Draw back  applied"
+
+[image9]: ./examples/drawWithRadius.png "draw back with radius "
+[image10]: ./examples/window.png "Sliding Window  applied"
+
+
+
+[video1]: ./project_video_output4.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -40,7 +48,6 @@ You're reading it!
 ####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
 The code for this step is contained in the  cells 3,4 and 5 of the IPython notebook titled AdvancedLaneFinding-Working. I read the calibration images provided with the repository using  the glob.glob('camera_cal/calibration*.jpg') . A visual inspection of the images showed them to have 6 by 9 corners and i used that info to instantiate the objectPoints array. I then  used the cv2.findChessboardCorners method to collect an array of imagepoints. I then used the imagePoints and objectPoints to calibrate the camera using cv2.calibrateCamera. I then used cv2.undistort to undistort the images.
- TODO:- Change Image
 
 ![alt text][image1]
 
@@ -48,34 +55,42 @@ The code for this step is contained in the  cells 3,4 and 5 of the IPython noteb
 
 ####1. Provide an example of a distortion-corrected image.
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-TODO:- Change Image
+
 ![alt text][image2]
+
 ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 Code is present in section labelled "Use color transforms, gradients, etc., to create a thresholded binary image."
 I used a combination of Sobelx, magnitude threshold and direction threshold to get a proper gradient across all test images. I iterated through all the test images to see that the combined gradient threshold gave a uniform output and configured parameters accordingly.
 
-TODO:- Put Image 
+![alt text][image3]
 
 I then used the HLS color space S Channel output and combined it with the gradient output above to generate a binary image
 
-TODO:- Change Image
+# SChannel Applied
 
-![alt text][image3]
+![alt text][image4]
+
+# Gradient and SChannel Stacked
+
+![alt text][image5]
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform includes a function called `unwarp()`, which appears section labelled "Perspective Transform:- * Apply a perspective transform to rectify binary image ("birds-eye view")."
  The `unwarp()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points by visual inspection of the images . I then tested all the pipeline images to see the result
 
-ToDO:- Change Image 
+# Perspective tranform on a road image
+![alt text][image6]
 
-![alt text][image4]
+# Perspective transform on a gradient applied image
+![alt text][image7]
+
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 I used the Sliding Window functionality to determine lanes lines further and code is present in section labelled "# Detect lane pixels and fit to find the lane boundary." I tested the detected lanes with about 10 windows and iterated through all the pipeline images to see how it performed. As per the labs i also set logic to not use sliding window for each frame and only when lines are not being detected properly using the previous frames 
 
-![alt text][image5]
+![alt text][image10]
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -94,8 +109,7 @@ r_fit_x_int and l_fit_x_int are the x-intercepts of the right and left fits, res
 
 I implemented this step in section labelled # Warp the detected lane boundaries back onto the original image. It basically uses the inverse perspective matrix to map the gradient back onto the image 
 
-TODO:- Change image
-![alt text][image6]
+![alt text][image9]
 
 ---
 
@@ -103,7 +117,7 @@ TODO:- Change image
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_video_output4.mp4)
 
 ---
 
